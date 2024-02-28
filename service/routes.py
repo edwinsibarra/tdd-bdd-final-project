@@ -112,6 +112,9 @@ def create_products():
 ######################################################################
 # LIST PRODUCTS
 ######################################################################
+######################################################################
+# LIST PRODUCTS
+######################################################################
 @app.route("/products", methods=["GET"])
 def list_products():
     """Returns a list of Products"""
@@ -128,8 +131,8 @@ def list_products():
     elif category:
         app.logger.info("Find by category: %s", category)
         # create enum from string
-        category_value = category.upper()
-        products = Product.find_by_category(category_value)
+        # category_value = getattr(Category, category.upper())
+        products = Product.find_by_category(category.upper())
     elif available:
         app.logger.info("Find by available: %s", available)
         # create bool from string
@@ -142,17 +145,11 @@ def list_products():
     results = [product.serialize() for product in products]
     app.logger.info("[%s] Products returned", len(results))
     return results, status.HTTP_200_OK
-
 ######################################################################
 # R E A D   A   P R O D U C T
 ######################################################################
 
-#
-# PLACE YOUR CODE HERE TO READ A PRODUCT
-#
-######################################################################
-# READ A PRODUCT
-######################################################################
+
 @app.route("/products/<int:product_id>", methods=["GET"])
 def get_products(product_id):
     """
@@ -172,12 +169,7 @@ def get_products(product_id):
 # U P D A T E   A   P R O D U C T
 ######################################################################
 
-#
-# PLACE YOUR CODE TO UPDATE A PRODUCT HERE
-#
-######################################################################
-# UPDATE AN EXISTING PRODUCT
-######################################################################
+
 @app.route("/products/<int:product_id>", methods=["PUT"])
 def update_products(product_id):
     """
